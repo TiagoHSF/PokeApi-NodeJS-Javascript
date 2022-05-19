@@ -2,7 +2,6 @@ const api = require('./api')
 const express = require("express");
 
 const server = express();
-
 server.use(express.json());
 
 server.listen(8000)
@@ -11,9 +10,10 @@ server.get('/', (req, res) => {
     return res.send({message: "Tiago"})
 })
 
-server.get('/pokemon/', async (req, res) => {
+server.get('/pokemon/id', async (req, res) => {
+    const { id } = req.params;
     try {
-        const { data } = await api.get('pokemon/1');
+        const { data } = await api.get(`pokemon/1`);
         return res.send({ 
             name: data.name
         })
@@ -22,7 +22,7 @@ server.get('/pokemon/', async (req, res) => {
     }
 })
 
-server.get('/pokemon/todos', async (req, res) => {
+server.get('/pokemon', async (req, res) => {
     try {
         const { data } = await api.get('pokemon/');
         return res.send({ 
